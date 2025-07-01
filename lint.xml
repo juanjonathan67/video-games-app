@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="NewApi" severity="error" />
+    <issue id="InlinedApi" severity="error" />
+    <issue id="UnusedResources" severity="error"/>
+    <issue id="UnusedImport" severity="error"/>
+    <issue id="HardcodedText" severity="error" />
+    <issue id="ContentDescription" severity="warning" />
+    <issue id="MissingTranslation" severity="error" />
+    <issue id="Deprecated" severity="error" />
+    <issue id="ObsoleteLayoutParam" severity="warning" />
+    <issue id="DuplicateIds" severity="error" />
+    <issue id="GradleDependency" severity="warning" />
+    <issue id="TypographyDashes" severity="warning" />
+    <issue id="TypographyQuotes" severity="warning" />
+
+    <!-- Optional: Disable specific checks -->
+    <issue id="IconMissingDensityFolder" severity="ignore" />
+</lint>

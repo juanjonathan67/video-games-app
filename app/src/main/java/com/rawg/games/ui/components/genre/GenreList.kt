@@ -5,7 +5,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -53,5 +52,18 @@ internal fun GenreLabel(
 @Composable
 @Preview(widthDp = 360, heightDp = 640, showBackground = true)
 internal fun GenreListPreview(){
-    GenreList(listOf("Action", "RPG", "FPS", "Platformer", "Action", "RPG", "FPS", "Platformer", "Action", "RPG", "FPS", "Platformer"))
+    GenreList(listOf(
+        "Action",
+        "RPG",
+        "FPS",
+        "Platformer",
+        "Action",
+        "RPG",
+        "FPS",
+        "Platformer",
+        "Action",
+        "RPG",
+        "FPS",
+        "Platformer"
+    ))
 }

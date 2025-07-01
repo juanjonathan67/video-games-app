@@ -65,14 +65,9 @@ internal fun HomeScreenContent(
         LazyRow (
             contentPadding = PaddingValues(4.dp)
         ) {
-            items(gameListDatas) {
+            items(gameListDatas) { gameListData ->
                 GameListItem(
-                    it.id,
-                    it.title,
-                    it.imageUrl,
-                    it.metacritic,
-                    it.userRating,
-                    it.genres,
+                    gameListData = gameListData,
                     onClick = { Log.d("Game Id", it.toString()) }
                 )
             }
@@ -88,14 +83,9 @@ internal fun HomeScreenContent(
         LazyRow (
             contentPadding = PaddingValues(4.dp)
         ) {
-            items(gameListDatas) {
+            items(gameListDatas) { gameListData ->
                 GameListItem(
-                    it.id,
-                    it.title,
-                    it.imageUrl,
-                    it.metacritic,
-                    it.userRating,
-                    it.genres,
+                    gameListData = gameListData,
                     onClick = { Log.d("Game Id", it.toString()) }
                 )
             }
