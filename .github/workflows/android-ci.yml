@@ -86,7 +86,6 @@ jobs:
 
   unit-test:
     name: Run Unit Tests
-    needs: build-debug
     runs-on: ubuntu-latest
 
     env:
