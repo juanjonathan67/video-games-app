@@ -27,12 +27,7 @@ import com.rawg.games.utils.scaleSize
 
 @Composable
 internal fun GameListItem(
-    id: Int,
-    title: String,
-    imageUrl: String,
-    metacritic: Int,
-    userRating: Double,
-    genres: List<String>,
+    gameListData: GameListData,
     onClick: (id: Int) -> Unit,
     modifier: Modifier = Modifier,
 ){
@@ -42,12 +37,12 @@ internal fun GameListItem(
         elevation = CardDefaults.cardElevation(
             defaultElevation = dimensionResource(R.dimen.card_elevation)
         ),
-        onClick = { onClick(id) },
+        onClick = { onClick(gameListData.id) },
         modifier = modifier
             .width(screenSize.first.scaleSize(0.8))
     ) {
         SubcomposeAsyncImage(
-            model = imageUrl,
+            model = gameListData.imageUrl,
             loading = {
                 CircularProgressIndicator(Modifier.size(40.dp))
             },
@@ -59,7 +54,7 @@ internal fun GameListItem(
 
         Column {
             Text(
-                text = title,
+                text = gameListData.title,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
                 maxLines = 1,
@@ -68,19 +63,19 @@ internal fun GameListItem(
                     .padding(horizontal = 4.dp, vertical = 2.dp)
             )
             Text(
-                stringResource(R.string.metacritic_rating, metacritic),
+                stringResource(R.string.metacritic_rating, gameListData.metacritic),
                 fontSize = 14.sp,
                 modifier = Modifier
                     .padding(horizontal = 4.dp, vertical = 2.dp)
             )
             Text(
-                stringResource(R.string.user_rating, userRating),
+                stringResource(R.string.user_rating, gameListData.userRating),
                 fontSize = 14.sp,
                 modifier = Modifier
                     .padding(horizontal = 4.dp, vertical = 2.dp)
             )
             GenreList(
-                genreList = genres,
+                genreList = gameListData.genres,
                 modifier = Modifier
                     .padding(horizontal = 4.dp, vertical = 4.dp)
             )
@@ -92,12 +87,14 @@ internal fun GameListItem(
 @Preview(widthDp = 360, heightDp = 640, showBackground = true)
 internal fun GameListItemPreview(){
     GameListItem(
-        id = 1,
-        title = "The Legend of Zelda: Ocarina of Time",
-        imageUrl = "https://media.rawg.io/media/games/3a0/3a0c8e9ed3a711c542218831b893a0fa.jpg",
-        metacritic = 99,
-        userRating = 4.38,
+        gameListData = GameListData(
+            id = 1,
+            title = "The Legend of Zelda: Ocarina of Time",
+            imageUrl = "https://media.rawg.io/media/games/3a0/3a0c8e9ed3a711c542218831b893a0fa.jpg",
+            metacritic = 99,
+            userRating = 4.38,
+            genres = listOf("Action", "RPG", "FPS", "Platformer", "Platformer", "Platformer", "Platformer")
+        ),
         onClick = {},
-        genres = listOf("Action", "RPG", "FPS", "Platformer", "Platformer", "Platformer", "Platformer")
     )
 }
