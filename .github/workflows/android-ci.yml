@@ -45,6 +45,45 @@ jobs:
       - name: Build Debug APK
         run: ./gradlew assembleDebug
 
+  lint-debug:
+    name: Android Lint Debug
+    runs-on: ubuntu-latest
+
+    env:
+      ANDROID_HOME: /usr/local/lib/android/sdk
+      GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+
+    steps:
+      - name: Checkout MR
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+      - run: echo "Checked out commit ${{ github.head_ref }}"
+
+      - name: Set up JDK 17
+        id: setup-java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Cache Gradle files
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            gradle-${{ runner.os }}-
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
+
+      - name: Build Debug APK
+        run: ./gradlew lintDebug
+
   unit-test:
     name: Run Unit Tests
     needs: build-debug
