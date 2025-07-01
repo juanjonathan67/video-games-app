@@ -5,7 +5,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.rawg.games.ui.components.bottomBar.BottomBar
 import com.rawg.games.ui.navigation.AppNavHost
 
@@ -22,4 +24,10 @@ internal fun VideoGameApp(
             modifier = modifier.padding(paddingValues)
         )
     }
+}
+
+@Composable
+@Preview
+internal fun VideoGameAppPreview(){
+    VideoGameApp(rememberNavController())
 }
