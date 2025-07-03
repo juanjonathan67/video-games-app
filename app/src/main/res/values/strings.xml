@@ -4,5 +4,5 @@
     <string name="best_games_title">Best Games</string>
 
     <string name="metacritic_rating">%1$s on Metacritic</string>
-    <string name="user_rating">%1$s by Gamers</string>
+    <string name="user_rating">%1$s Rating by %2$s Gamers</string>
 </resources>

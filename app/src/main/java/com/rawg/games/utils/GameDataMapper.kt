@@ -11,6 +11,7 @@ object GameDataMapper {
                 name = it.name,
                 imageUrl = it.imageUrl,
                 userRating = it.userRating,
+                ratingsCount = it.ratingsCount,
                 metacritic = it.metacritic ?: 0,
                 platforms = it.platforms.map { platform ->
                     platform.platformDetails.name

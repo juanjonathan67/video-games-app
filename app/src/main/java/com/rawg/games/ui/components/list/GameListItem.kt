@@ -1,15 +1,18 @@
 package com.rawg.games.ui.components.list
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
@@ -45,7 +48,11 @@ internal fun GameListItem(
         SubcomposeAsyncImage(
             model = gameData.imageUrl,
             loading = {
-                CircularProgressIndicator(Modifier.size(40.dp))
+                CircularProgressIndicator(
+                    Modifier
+                        .fillMaxSize()
+                        .wrapContentSize(Alignment.Center)
+                )
             },
             contentDescription = null,
             contentScale = ContentScale.Crop,
@@ -70,7 +77,7 @@ internal fun GameListItem(
                     .padding(horizontal = 4.dp, vertical = 2.dp)
             )
             Text(
-                stringResource(R.string.user_rating, gameData.userRating),
+                stringResource(R.string.user_rating, gameData.userRating, gameData.ratingsCount),
                 fontSize = 14.sp,
                 modifier = Modifier
                     .padding(horizontal = 4.dp, vertical = 2.dp)
@@ -94,6 +101,7 @@ internal fun GameListItemPreview(){
             imageUrl = "https://media.rawg.io/media/games/3a0/3a0c8e9ed3a711c542218831b893a0fa.jpg",
             metacritic = 99,
             userRating = 4.38,
+            ratingsCount = 51355,
             platforms = listOf("PC", "Playstation"),
             genres = listOf("Action", "RPG", "FPS", "Platformer", "Platformer", "Platformer", "Platformer")
         ),

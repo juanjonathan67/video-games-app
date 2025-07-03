@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.rx3.asFlow
 import javax.inject.Inject
 
-class HomeScreenViewModel @Inject constructor(
+class HomeViewModel @Inject constructor(
     private val gamesRepository: GamesRepository,
 ) : ViewModel() {
     fun getBestGames(): Flow<PagingData<GameData>> {

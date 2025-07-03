@@ -15,6 +15,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -37,7 +38,7 @@ internal fun BottomBar(
                 onClick = { navController.navigate(Route.Home.route) },
             ) {
                 Icon(
-                    imageVector = Icons.Default.Home,
+                    painter = painterResource(R.drawable.outline_gamepad_24),
                     contentDescription = "Home Screen",
                     modifier = Modifier
                         .size(bottomBarIconSize)
