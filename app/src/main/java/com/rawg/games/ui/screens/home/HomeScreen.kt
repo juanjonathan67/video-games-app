@@ -4,14 +4,18 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.rawg.games.data.model.GameData
+import com.rawg.games.ui.components.error.Error
 import com.rawg.games.ui.components.list.GameListItem
+import com.rawg.games.ui.components.loading.Loading
 import com.rawg.games.utils.LocalViewModelFactory
 import kotlinx.coroutines.flow.flowOf
 
@@ -19,9 +23,19 @@ import kotlinx.coroutines.flow.flowOf
 fun HomeScreen(
     homeViewModel: HomeViewModel = viewModel(factory = LocalViewModelFactory.current)
 ) {
-    val bestGames = homeViewModel.getBestGames().collectAsLazyPagingItems()
+    val bestGames = remember { homeViewModel.getBestGames() }.collectAsLazyPagingItems()
 
-    HomeScreenContent(bestGames)
+    when (bestGames.loadState.refresh) {
+        is LoadState.Loading -> Loading()
+        is LoadState.Error -> Error()
+        else -> {
+            if(bestGames.itemCount == 0) {
+                Loading()
+            } else {
+                HomeScreenContent(bestGames)
+            }
+        }
+    }
 }
 
 @Composable
