@@ -3,4 +3,6 @@
 
     <string name="metacritic_rating">%1$s on Metacritic</string>
     <string name="user_rating">%1$s Rating by %2$s Gamers</string>
+
+    <string name="error_text">"Oops, something went wrong"</string>
 </resources>

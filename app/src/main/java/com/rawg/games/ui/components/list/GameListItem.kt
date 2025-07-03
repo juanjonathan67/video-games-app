@@ -1,17 +1,13 @@
 package com.rawg.games.ui.components.list
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
@@ -25,6 +21,7 @@ import coil3.compose.SubcomposeAsyncImage
 import com.rawg.games.R
 import com.rawg.games.data.model.GameData
 import com.rawg.games.ui.components.genre.GenreList
+import com.rawg.games.ui.components.loading.Loading
 import com.rawg.games.utils.getScreenSize
 import com.rawg.games.utils.scaleSize
 
@@ -47,11 +44,7 @@ internal fun GameListItem(
         SubcomposeAsyncImage(
             model = gameData.imageUrl,
             loading = {
-                CircularProgressIndicator(
-                    Modifier
-                        .fillMaxSize()
-                        .wrapContentSize(Alignment.Center)
-                )
+                Loading()
             },
             contentDescription = null,
             contentScale = ContentScale.Crop,
