@@ -1,10 +1,10 @@
 package com.rawg.games.ui.components.list
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedCard
@@ -21,13 +21,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.SubcomposeAsyncImage
 import com.rawg.games.R
+import com.rawg.games.data.model.GameData
 import com.rawg.games.ui.components.genre.GenreList
 import com.rawg.games.utils.getScreenSize
 import com.rawg.games.utils.scaleSize
 
 @Composable
 internal fun GameListItem(
-    gameListData: GameListData,
+    gameData: GameData,
     onClick: (id: Int) -> Unit,
     modifier: Modifier = Modifier,
 ){
@@ -37,12 +38,12 @@ internal fun GameListItem(
         elevation = CardDefaults.cardElevation(
             defaultElevation = dimensionResource(R.dimen.card_elevation)
         ),
-        onClick = { onClick(gameListData.id) },
+        onClick = { onClick(gameData.id) },
         modifier = modifier
-            .width(screenSize.first.scaleSize(0.8))
+            .fillMaxWidth()
     ) {
         SubcomposeAsyncImage(
-            model = gameListData.imageUrl,
+            model = gameData.imageUrl,
             loading = {
                 CircularProgressIndicator(Modifier.size(40.dp))
             },
@@ -54,7 +55,7 @@ internal fun GameListItem(
 
         Column {
             Text(
-                text = gameListData.title,
+                text = gameData.name,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
                 maxLines = 1,
@@ -63,19 +64,19 @@ internal fun GameListItem(
                     .padding(horizontal = 4.dp, vertical = 2.dp)
             )
             Text(
-                stringResource(R.string.metacritic_rating, gameListData.metacritic),
+                stringResource(R.string.metacritic_rating, gameData.metacritic),
                 fontSize = 14.sp,
                 modifier = Modifier
                     .padding(horizontal = 4.dp, vertical = 2.dp)
             )
             Text(
-                stringResource(R.string.user_rating, gameListData.userRating),
+                stringResource(R.string.user_rating, gameData.userRating),
                 fontSize = 14.sp,
                 modifier = Modifier
                     .padding(horizontal = 4.dp, vertical = 2.dp)
             )
             GenreList(
-                genreList = gameListData.genres,
+                genreList = gameData.genres,
                 modifier = Modifier
                     .padding(horizontal = 4.dp, vertical = 4.dp)
             )
@@ -87,12 +88,13 @@ internal fun GameListItem(
 @Preview(widthDp = 360, heightDp = 640, showBackground = true)
 internal fun GameListItemPreview(){
     GameListItem(
-        gameListData = GameListData(
+        gameData = GameData(
             id = 1,
-            title = "The Legend of Zelda: Ocarina of Time",
+            name = "The Legend of Zelda: Ocarina of Time",
             imageUrl = "https://media.rawg.io/media/games/3a0/3a0c8e9ed3a711c542218831b893a0fa.jpg",
             metacritic = 99,
             userRating = 4.38,
+            platforms = listOf("PC", "Playstation"),
             genres = listOf("Action", "RPG", "FPS", "Platformer", "Platformer", "Platformer", "Platformer")
         ),
         onClick = {},
