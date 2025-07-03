@@ -4,6 +4,12 @@ on:
   pull_request:
     branches:
       - main
+  push:
+    branches:
+      - main
+
+env:
+  RAWG_API_KEY: ${{ secrets.RAWG_API_KEY }}
 
 jobs:
   build-debug:
