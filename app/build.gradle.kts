@@ -1,6 +1,21 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
+
+val properties = Properties()
+val propertiesFile = rootProject.file("secret.properties")
+val rawgApiKey: String = if (propertiesFile.exists()) {
+    properties.load(propertiesFile.inputStream())
+    properties.getProperty("rawg.api.key") ?: System.getenv("RAWG_API_KEY")
+} else {
+    System.getenv("RAWG_API_KEY")
+} ?: throw IllegalStateException("RAWG API Key not found. Add it to secret.properties or define RAWG_API_KEY as an environment variable.")
+
+rootProject.extra.set("rawg_api_key", rawgApiKey)
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.detekt)
 }
 
@@ -16,6 +31,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "RAWG_API_KEY", "\"${rootProject.extra["rawg_api_key"]}\"")
+        buildConfigField("String", "BASE_URL", "\"https://api.rawg.io/api/\"")
     }
 
     buildTypes {
@@ -31,13 +48,16 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
+    kotlin {
+        compilerOptions {
+            jvmTarget = JvmTarget.JVM_17
+        }
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.15"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
 }
@@ -59,8 +79,26 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.lifecycle)
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.rxjava)
+    implementation(libs.retrofit.moshi)
+    implementation(libs.logging.interceptor)
+    implementation(libs.moshi)
+    implementation(libs.reactivex.rxjava)
+    implementation(libs.reactivex.rxandroid)
+    implementation(libs.dagger)
+    implementation(libs.dagger.android)
+    implementation(libs.dagger.android.support)
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.paging.rxjava)
+    implementation(libs.androidx.paging.compose)
+    implementation(libs.kotlin.coroutines.rx3)
+    kapt(libs.dagger.compiler)
+    kapt(libs.dagger.android.processor)
+    kapt(libs.moshi.kotlin.codegen)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
