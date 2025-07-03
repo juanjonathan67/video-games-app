@@ -3,11 +3,14 @@ import java.util.Properties
 
 val properties = Properties()
 val propertiesFile = rootProject.file("secret.properties")
-if (propertiesFile.exists()) {
+val rawgApiKey: String = if (propertiesFile.exists()) {
     properties.load(propertiesFile.inputStream())
-}
-val localPropertyValue: String = properties.getProperty("rawg.api.key")
-rootProject.extra.set("rawg_api_key", localPropertyValue)
+    properties.getProperty("rawg.api.key") ?: System.getenv("RAWG_API_KEY")
+} else {
+    System.getenv("RAWG_API_KEY")
+} ?: throw IllegalStateException("RAWG API Key not found. Add it to secret.properties or define RAWG_API_KEY as an environment variable.")
+
+rootProject.extra.set("rawg_api_key", rawgApiKey)
 
 plugins {
     alias(libs.plugins.android.application)
