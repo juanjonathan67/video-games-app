@@ -20,8 +20,6 @@ class GamesRepositoryImpl @Inject constructor(
     private val gamesService: GamesService,
 ) : GamesRepository {
     override fun getGames(
-        page: Int?,
-        pageSize: Int?,
         search: String?,
         ordering: Ordering?
     ): Observable<PagingData<GameData>> {
@@ -30,8 +28,6 @@ class GamesRepositoryImpl @Inject constructor(
                 pageSize = PAGE_SIZE,
                 enablePlaceholders = ENABLE_PLACEHOLDERS,
                 maxSize = MAX_SIZE,
-                prefetchDistance = PREFETCH_DISTANCE,
-                initialLoadSize = INITIAL_LOAD_SIZE,
             ),
             pagingSourceFactory = { GamesPagingSource(gamesService, search, ordering) }
         )
@@ -51,7 +47,5 @@ class GamesRepositoryImpl @Inject constructor(
         private const val PAGE_SIZE = 20
         private const val ENABLE_PLACEHOLDERS = false
         private const val MAX_SIZE = 200
-        private const val PREFETCH_DISTANCE = 5
-        private const val INITIAL_LOAD_SIZE = 20
     }
 }

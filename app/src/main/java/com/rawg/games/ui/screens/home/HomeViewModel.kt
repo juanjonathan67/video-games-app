@@ -1,7 +1,9 @@
 package com.rawg.games.ui.screens.home
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.rawg.games.data.model.GameData
 import com.rawg.games.data.network.repository.GamesRepository
 import com.rawg.games.utils.Ordering
@@ -16,5 +18,6 @@ class HomeViewModel @Inject constructor(
         return gamesRepository
             .getGames(ordering = Ordering.METACRITIC_DESCENDING)
             .asFlow()
+            .cachedIn(viewModelScope)
     }
 }
