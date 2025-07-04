@@ -35,21 +35,23 @@ class GamesRepositoryImplTest {
             GamesResponse.Games(
                 id = 1,
                 name = "Accepted Game",
+                released = "2025-04-02",
                 imageUrl = "url1",
                 userRating = 4.5,
                 ratingsCount = 150,
                 metacritic = 90,
-                platforms = listOf(GamesResponse.Platform(GamesResponse.PlatformDetails("PC"))),
+                platforms = listOf(GamesResponse.Platform(GamesResponse.PlatformDetails(id = 1))),
                 genres = listOf(GamesResponse.Genre("RPG"))
             ),
             GamesResponse.Games(
                 id = 2,
                 name = "Filtered Out Game",
+                released = "2025-04-02",
                 imageUrl = "url2",
                 userRating = 4.5,
                 ratingsCount = 50, // will be filtered out
                 metacritic = 70,
-                platforms = listOf(GamesResponse.Platform(GamesResponse.PlatformDetails("PC"))),
+                platforms = listOf(GamesResponse.Platform(GamesResponse.PlatformDetails(id = 1))),
                 genres = listOf(GamesResponse.Genre("Shooter"))
             )
         )

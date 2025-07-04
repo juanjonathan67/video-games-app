@@ -19,6 +19,9 @@ data class GamesResponse (
         @Json(name = "name")
         val name: String,
 
+        @Json(name = "released")
+        val released: String,
+
         @Json(name = "background_image")
         val imageUrl: String?,
 
@@ -46,8 +49,8 @@ data class GamesResponse (
 
     @JsonClass(generateAdapter = true)
     data class PlatformDetails(
-        @Json(name = "name")
-        val name: String,
+        @Json(name = "id")
+        val id: Int,
     )
 
     @JsonClass(generateAdapter = true)

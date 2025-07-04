@@ -1,6 +1,7 @@
 package com.rawg.games.utils
 
 import com.rawg.games.data.network.service.games.GamesResponse
+import com.rawg.games.ui.components.platform.Platform
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -11,6 +12,7 @@ class GameDataMapperTest {
         val response = GamesResponse.Games(
             id = 1,
             name = "Test Game",
+            released = "2025-04-02",
             imageUrl = "https://example.com/image.jpg",
             userRating = 4.5,
             ratingsCount = 1200,
@@ -18,12 +20,12 @@ class GameDataMapperTest {
             platforms = listOf(
                 GamesResponse.Platform(
                     platformDetails = GamesResponse.PlatformDetails(
-                        name = "PC"
+                        id = 1
                     )
                 ),
                 GamesResponse.Platform(
                     platformDetails = GamesResponse.PlatformDetails(
-                        name = "Playstation"
+                        id = 2
                     )
                 ),
             ),
@@ -43,7 +45,7 @@ class GameDataMapperTest {
         assertEquals(4.5, result.userRating, 0.0)
         assertEquals(1200, result.ratingsCount)
         assertEquals(88, result.metacritic)
-        assertEquals(listOf("PC", "Playstation"), result.platforms)
+        assertEquals(listOf(Platform.PC, Platform.Playstation), result.platforms)
         assertEquals(listOf("Action", "Adventure"), result.genres)
     }
 
@@ -53,6 +55,7 @@ class GameDataMapperTest {
         val response = GamesResponse.Games(
             id = 2,
             name = "No Metacritic",
+            released = "2025-04-02",
             imageUrl = "https://example.com/no_meta.jpg",
             userRating = 3.8,
             ratingsCount = 400,
@@ -60,7 +63,7 @@ class GameDataMapperTest {
             platforms = listOf(
                 GamesResponse.Platform(
                     platformDetails = GamesResponse.PlatformDetails(
-                        name = "Xbox"
+                        id = 1
                     )
                 ),
             ),

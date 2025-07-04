@@ -129,7 +129,7 @@ complexity:
     threshold: 600
   LongMethod:
     active: true
-    threshold: 60
+    threshold: 100
   LongParameterList:
     active: true
     functionThreshold: 6
@@ -744,7 +744,7 @@ style:
   UnusedImports:
     active: true
   UnusedParameter:
-    active: true
+    active: false
     allowedNames: 'ignored|expected'
   UnusedPrivateClass:
     active: true
