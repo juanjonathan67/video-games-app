@@ -1,4 +1,4 @@
-package com.rawg.games.ui.components.list
+package com.rawg.games.ui.components.game
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,11 +22,13 @@ import com.rawg.games.R
 import com.rawg.games.data.model.GameData
 import com.rawg.games.ui.components.genre.GenreList
 import com.rawg.games.ui.components.loading.Loading
+import com.rawg.games.ui.components.platform.Platform
+import com.rawg.games.ui.components.platform.PlatformList
 import com.rawg.games.utils.getScreenSize
 import com.rawg.games.utils.scaleSize
 
 @Composable
-internal fun GameListItem(
+internal fun GameItem(
     gameData: GameData,
     onClick: (id: Int) -> Unit,
     modifier: Modifier = Modifier,
@@ -63,6 +65,12 @@ internal fun GameListItem(
                     .padding(horizontal = 4.dp, vertical = 2.dp)
             )
             Text(
+                stringResource(R.string.release_date, gameData.released),
+                fontSize = 14.sp,
+                modifier = Modifier
+                    .padding(horizontal = 4.dp, vertical = 2.dp)
+            )
+            Text(
                 stringResource(R.string.metacritic_rating, gameData.metacritic),
                 fontSize = 14.sp,
                 modifier = Modifier
@@ -79,22 +87,28 @@ internal fun GameListItem(
                 modifier = Modifier
                     .padding(horizontal = 4.dp, vertical = 4.dp)
             )
+            PlatformList(
+                platforms = gameData.platforms,
+                modifier = Modifier
+                    .padding(horizontal = 4.dp, vertical = 4.dp)
+            )
         }
     }
 }
 
 @Composable
 @Preview(widthDp = 360, heightDp = 640, showBackground = true)
-internal fun GameListItemPreview(){
-    GameListItem(
+internal fun GameItemPreview(){
+    GameItem(
         gameData = GameData(
             id = 1,
             name = "The Legend of Zelda: Ocarina of Time",
+            released = "22 January 1999",
             imageUrl = "https://media.rawg.io/media/games/3a0/3a0c8e9ed3a711c542218831b893a0fa.jpg",
             metacritic = 99,
             userRating = 4.38,
             ratingsCount = 51355,
-            platforms = listOf("PC", "Playstation"),
+            platforms = listOf(Platform.PC, Platform.Playstation),
             genres = listOf("Action", "RPG", "FPS", "Platformer", "Platformer", "Platformer", "Platformer")
         ),
         onClick = {},

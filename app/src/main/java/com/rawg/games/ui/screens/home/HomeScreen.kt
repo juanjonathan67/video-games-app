@@ -1,30 +1,75 @@
 package com.rawg.games.ui.screens.home
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.LoadState
-import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.rawg.games.R
 import com.rawg.games.data.model.GameData
 import com.rawg.games.ui.components.error.Error
-import com.rawg.games.ui.components.list.GameListItem
+import com.rawg.games.ui.components.game.GameItem
 import com.rawg.games.ui.components.loading.Loading
+import com.rawg.games.ui.components.search.SearchField
 import com.rawg.games.utils.LocalViewModelFactory
-import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun HomeScreen(
     homeViewModel: HomeViewModel = viewModel(factory = LocalViewModelFactory.current)
 ) {
-    val bestGames = remember { homeViewModel.getBestGames() }.collectAsLazyPagingItems()
+    val bestGames = remember { homeViewModel.games }.collectAsLazyPagingItems()
+    var searchQuery by remember { mutableStateOf("") }
 
+    Column {
+        SearchField(
+            searchQuery = searchQuery,
+            onSearchQueryChanged = {
+                searchQuery = it
+                homeViewModel.setSearchQuery(it)
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(4.dp)
+        )
+
+        HomeScreenContent(bestGames)
+    }
+}
+
+@Composable
+fun FilterButton(
+    onFilterButtonClicked: () -> Unit,
+) {
+    IconButton(
+        onClick = onFilterButtonClicked
+    ) {
+        Icon(
+            painterResource(R.drawable.outline_filter_list_24),
+            contentDescription = "Filter Button"
+        )
+    }
+}
+
+@Composable
+fun HomeScreenContent(
+    bestGames: LazyPagingItems<GameData>,
+) {
     when (bestGames.loadState.refresh) {
         is LoadState.Loading -> Loading()
         is LoadState.Error -> Error()
@@ -32,14 +77,14 @@ fun HomeScreen(
             if(bestGames.itemCount == 0) {
                 Loading()
             } else {
-                HomeScreenContent(bestGames)
+                GamesList(bestGames)
             }
         }
     }
 }
 
 @Composable
-fun HomeScreenContent(
+fun GamesList(
     bestGames: LazyPagingItems<GameData>,
 ) {
     LazyColumn (
@@ -52,7 +97,7 @@ fun HomeScreenContent(
         ) {
             val item = bestGames[it] ?: return@items
 
-            GameListItem(
+            GameItem(
                 gameData = item,
                 onClick = { }
             )
@@ -61,42 +106,7 @@ fun HomeScreenContent(
 }
 
 @Composable
-@Preview(widthDp = 360, heightDp = 640, showBackground = true)
-fun HomeScreenContentPreview() {
-    val list = listOf(
-        GameData(
-            id = 1,
-            name = "The Legend of Zelda: Ocarina of Time",
-            imageUrl = "https://media.rawg.io/media/games/3a0/3a0c8e9ed3a711c542218831b893a0fa.jpg",
-            metacritic = 99,
-            userRating = 4.38,
-            ratingsCount = 12512,
-            platforms = listOf("PC", "Playstation"),
-            genres = listOf("Action", "RPG", "FPS", "Platformer", "Platformer", "Platformer", "Platformer")
-        ),
-        GameData(
-            id = 2,
-            name = "Baldur's Gate III",
-            imageUrl = "https://media.rawg.io/media/games/699/69907ecf13f172e9e144069769c3be73.jpg",
-            metacritic = 97,
-            userRating = 4.44,
-            ratingsCount = 462341,
-            platforms = listOf("PC", "Playstation"),
-            genres = listOf("Action", "RPG", "FPS", "Platformer", "Platformer", "Platformer", "Platformer")
-        ),
-        GameData(
-            id = 3,
-            name = "Metroid Prime",
-            imageUrl = "https://media.rawg.io/media/games/c86/c86bc047ba949959a90fe24209d59439.jpg",
-            metacritic = 97,
-            userRating = 4.37,
-            ratingsCount = 64262,
-            platforms = listOf("PC", "Playstation"),
-            genres = listOf("Action", "RPG", "FPS", "Platformer", "Platformer", "Platformer", "Platformer")
-        )
-    )
-
-    HomeScreenContent(
-        bestGames = flowOf(PagingData.from(list)).collectAsLazyPagingItems(),
-    )
+@Preview(showBackground = true)
+fun FilterButtonPreview() {
+    FilterButton {  }
 }

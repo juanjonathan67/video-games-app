@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
@@ -40,17 +38,6 @@ internal fun BottomBar(
                 Icon(
                     painter = painterResource(R.drawable.outline_gamepad_24),
                     contentDescription = "Home Screen",
-                    modifier = Modifier
-                        .size(bottomBarIconSize)
-                )
-            }
-            Spacer(modifier = Modifier.weight(1F))
-            IconButton(
-                onClick = { navController.navigate(Route.Search.route) }
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Search,
-                    contentDescription = "Discover Screen",
                     modifier = Modifier
                         .size(bottomBarIconSize)
                 )

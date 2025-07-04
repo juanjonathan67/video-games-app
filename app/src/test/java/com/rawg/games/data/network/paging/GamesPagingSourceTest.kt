@@ -39,13 +39,14 @@ class GamesPagingSourceTest {
             GamesResponse.Games(
                 id = 1,
                 name = "Test Game",
+                released = "2025-04-02",
                 imageUrl = "https://example.com/image.jpg",
                 userRating = 4.5,
                 ratingsCount = 100,
                 metacritic = 88,
                 platforms = listOf(
                     GamesResponse.Platform(
-                        platformDetails = GamesResponse.PlatformDetails(name = "PC")
+                        platformDetails = GamesResponse.PlatformDetails(id = 1)
                     )
                 ),
                 genres = listOf(
@@ -55,13 +56,14 @@ class GamesPagingSourceTest {
             GamesResponse.Games(
                 id = 2,
                 name = "Test Game 2",
+                released = "2025-04-02",
                 imageUrl = "https://example.com/image2.jpg",
                 userRating = 4.5,
                 ratingsCount = 100,
                 metacritic = 88,
                 platforms = listOf(
                     GamesResponse.Platform(
-                        platformDetails = GamesResponse.PlatformDetails(name = "PC")
+                        platformDetails = GamesResponse.PlatformDetails(id = 1)
                     )
                 ),
                 genres = listOf(

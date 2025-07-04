@@ -7,7 +7,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.rawg.games.ui.screens.favorite.FavoriteScreen
 import com.rawg.games.ui.screens.home.HomeScreen
-import com.rawg.games.ui.screens.search.SearchScreen
 import com.rawg.games.ui.screens.settings.SettingsScreen
 
 @Composable
@@ -24,11 +23,6 @@ fun AppNavHost(
             route = Route.Home.route
         ) {
             HomeScreen()
-        }
-        composable(
-            route = Route.Search.route
-        ) {
-            SearchScreen()
         }
         composable(
             route = Route.Favorite.route
