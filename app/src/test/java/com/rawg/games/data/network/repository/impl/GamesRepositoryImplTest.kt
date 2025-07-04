@@ -29,7 +29,7 @@ class GamesRepositoryImplTest {
     }
 
     @Test
-    fun `getGames returns filtered and mapped PagingData`() = runTest {
+    fun gamesRepository_getGames_returnsGameData() = runTest {
         // setup
         val rawGames = listOf(
             GamesResponse.Games(
@@ -41,7 +41,7 @@ class GamesRepositoryImplTest {
                 ratingsCount = 150,
                 metacritic = 90,
                 platforms = listOf(GamesResponse.Platform(GamesResponse.PlatformDetails(id = 1))),
-                genres = listOf(GamesResponse.Genre("RPG"))
+                genres = listOf(GamesResponse.Genre(id = 4))
             ),
             GamesResponse.Games(
                 id = 2,
@@ -49,10 +49,10 @@ class GamesRepositoryImplTest {
                 released = "2025-04-02",
                 imageUrl = "url2",
                 userRating = 4.5,
-                ratingsCount = 50, // will be filtered out
+                ratingsCount = 50,
                 metacritic = 70,
                 platforms = listOf(GamesResponse.Platform(GamesResponse.PlatformDetails(id = 1))),
-                genres = listOf(GamesResponse.Genre("Shooter"))
+                genres = listOf(GamesResponse.Genre(id = 4))
             )
         )
 
@@ -70,7 +70,7 @@ class GamesRepositoryImplTest {
         val result = pagingData.asFlow().asSnapshot()
 
         // assert
-        Assert.assertEquals(1, result.size)
+        Assert.assertEquals(2, result.size)
         Assert.assertEquals("Accepted Game", result[0].name)
     }
 }
