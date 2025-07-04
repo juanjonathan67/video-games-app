@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.sp
 fun PlatformList(
     platforms: List<Platform>,
     modifier: Modifier = Modifier,
-    maxLines: Int = 1,
+    maxLines: Int = Int.MAX_VALUE,
     clickable: Boolean = false,
     onPlatformClick: (Int) -> Unit = {},
 ) {

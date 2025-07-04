@@ -19,11 +19,11 @@ import androidx.compose.ui.unit.sp
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun GenreList(
-    genreList: List<String>,
+    genreList: List<Genre>,
     modifier: Modifier = Modifier,
-    maxLines: Int = 1,
+    maxLines: Int = Int.MAX_VALUE,
     clickable: Boolean = false,
-    onGenreClick: (String) -> Unit = {},
+    onGenreClick: (Genre) -> Unit = {},
 ) {
     FlowRow (
         horizontalArrangement = Arrangement.spacedBy(4.dp),
@@ -39,13 +39,13 @@ internal fun GenreList(
 
 @Composable
 internal fun GenreLabel(
-    genre: String,
+    genre: Genre,
     modifier: Modifier = Modifier,
     clickable: Boolean = false,
-    onGenreClick: (String) -> Unit = {},
+    onGenreClick: (Genre) -> Unit = {},
 ) {
     Text(
-        text = genre,
+        text = genre.displayName,
         fontSize = 10.sp,
         modifier = modifier
             .border(
@@ -64,20 +64,7 @@ internal fun GenreLabel(
 @Preview(widthDp = 360, heightDp = 640, showBackground = true)
 internal fun GenreListPreview(){
     GenreList(
-        listOf(
-            "Action",
-            "RPG",
-            "FPS",
-            "Platformer",
-            "Action",
-            "RPG",
-            "FPS",
-            "Platformer",
-            "Action",
-            "RPG",
-            "FPS",
-            "Platformer"
-        ),
+        genreList = Genre.entries.toList(),
         maxLines = Int.MAX_VALUE
     )
 }

@@ -1,6 +1,7 @@
 package com.rawg.games.utils
 
 import com.rawg.games.data.network.service.games.GamesResponse
+import com.rawg.games.ui.components.genre.Genre
 import com.rawg.games.ui.components.platform.Platform
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -30,8 +31,8 @@ class GameDataMapperTest {
                 ),
             ),
             genres = listOf(
-                GamesResponse.Genre("Action"),
-                GamesResponse.Genre("Adventure")
+                GamesResponse.Genre(id = 3),
+                GamesResponse.Genre(id = 4)
             )
         )
 
@@ -46,7 +47,7 @@ class GameDataMapperTest {
         assertEquals(1200, result.ratingsCount)
         assertEquals(88, result.metacritic)
         assertEquals(listOf(Platform.PC, Platform.Playstation), result.platforms)
-        assertEquals(listOf("Action", "Adventure"), result.genres)
+        assertEquals(listOf(Genre.Adventure, Genre.Action), result.genres)
     }
 
     @Test
@@ -68,7 +69,7 @@ class GameDataMapperTest {
                 ),
             ),
             genres = listOf(
-                GamesResponse.Genre("Puzzle")
+                GamesResponse.Genre(id = 4)
             )
         )
 

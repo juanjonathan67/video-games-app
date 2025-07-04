@@ -3,7 +3,7 @@ package com.rawg.games.ui.screens.home
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Icon
@@ -24,6 +24,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.rawg.games.R
 import com.rawg.games.data.model.GameData
 import com.rawg.games.ui.components.error.Error
+import com.rawg.games.ui.components.filter.FilterDialog
 import com.rawg.games.ui.components.game.GameItem
 import com.rawg.games.ui.components.loading.Loading
 import com.rawg.games.ui.components.search.SearchField
@@ -36,28 +37,51 @@ fun HomeScreen(
     val bestGames = remember { homeViewModel.games }.collectAsLazyPagingItems()
     var searchQuery by remember { mutableStateOf("") }
 
+    var showFilterDialog by remember { mutableStateOf(false) }
+
     Column {
-        SearchField(
-            searchQuery = searchQuery,
-            onSearchQueryChanged = {
-                searchQuery = it
-                homeViewModel.setSearchQuery(it)
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(4.dp)
-        )
+        Row {
+            SearchField(
+                searchQuery = searchQuery,
+                onSearchQueryChanged = {
+                    searchQuery = it
+                    homeViewModel.setSearchQuery(it)
+                },
+                modifier = Modifier
+                    .weight(1F)
+                    .padding(4.dp)
+            )
+
+            FilterButton(
+                onFilterButtonClicked = { showFilterDialog = true },
+                modifier = Modifier
+                    .padding(4.dp)
+            )
+        }
 
         HomeScreenContent(bestGames)
+    }
+
+    if (showFilterDialog) {
+        FilterDialog(
+            onDismissRequest = { showFilterDialog = false },
+            onConfirmClicked = {
+                homeViewModel.setFilter(it)
+                showFilterDialog = false
+            }
+        )
     }
 }
 
 @Composable
 fun FilterButton(
     onFilterButtonClicked: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
+
     IconButton(
-        onClick = onFilterButtonClicked
+        onClick = onFilterButtonClicked,
+        modifier = modifier
     ) {
         Icon(
             painterResource(R.drawable.outline_filter_list_24),
@@ -108,5 +132,7 @@ fun GamesList(
 @Composable
 @Preview(showBackground = true)
 fun FilterButtonPreview() {
-    FilterButton {  }
+    FilterButton(
+        onFilterButtonClicked = {}
+    )
 }

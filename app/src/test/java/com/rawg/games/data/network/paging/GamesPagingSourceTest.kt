@@ -50,7 +50,7 @@ class GamesPagingSourceTest {
                     )
                 ),
                 genres = listOf(
-                    GamesResponse.Genre(name = "Action")
+                    GamesResponse.Genre(id = 4)
                 )
             ),
             GamesResponse.Games(
@@ -67,7 +67,7 @@ class GamesPagingSourceTest {
                     )
                 ),
                 genres = listOf(
-                    GamesResponse.Genre(name = "Action")
+                    GamesResponse.Genre(id = 4)
                 )
             ),
         )

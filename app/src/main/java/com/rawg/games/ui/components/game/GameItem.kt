@@ -1,6 +1,7 @@
 package com.rawg.games.ui.components.game
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -20,6 +21,8 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.SubcomposeAsyncImage
 import com.rawg.games.R
 import com.rawg.games.data.model.GameData
+import com.rawg.games.ui.components.error.PlaceholderImage
+import com.rawg.games.ui.components.genre.Genre
 import com.rawg.games.ui.components.genre.GenreList
 import com.rawg.games.ui.components.loading.Loading
 import com.rawg.games.ui.components.platform.Platform
@@ -48,7 +51,14 @@ internal fun GameItem(
             loading = {
                 Loading()
             },
-            contentDescription = null,
+            error = {
+                PlaceholderImage(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp)
+                )
+            },
+            contentDescription = "Game image",
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .height(screenSize.second.scaleSize(0.2))
@@ -108,8 +118,8 @@ internal fun GameItemPreview(){
             metacritic = 99,
             userRating = 4.38,
             ratingsCount = 51355,
-            platforms = listOf(Platform.PC, Platform.Playstation),
-            genres = listOf("Action", "RPG", "FPS", "Platformer", "Platformer", "Platformer", "Platformer")
+            platforms = Platform.entries.toList(),
+            genres = Genre.entries.toList(),
         ),
         onClick = {},
     )
