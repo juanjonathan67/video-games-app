@@ -11,8 +11,15 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,7 +35,7 @@ fun PlatformList(
     modifier: Modifier = Modifier,
     maxLines: Int = Int.MAX_VALUE,
     clickable: Boolean = false,
-    onPlatformClick: (Int) -> Unit = {},
+    onPlatformClick: (Platform) -> Unit = {},
 ) {
     FlowRow (
         horizontalArrangement = Arrangement.spacedBy(4.dp),
@@ -37,7 +44,11 @@ fun PlatformList(
         modifier = modifier
     ) {
         platforms.forEach {
-            PlatformLabel(it)
+            PlatformLabel(
+                platform = it,
+                clickable = clickable,
+                onPlatformClick = onPlatformClick,
+            )
         }
     }
 }
@@ -47,8 +58,10 @@ internal fun PlatformLabel(
     platform: Platform,
     modifier: Modifier = Modifier,
     clickable: Boolean = false,
-    onPlatformClick: (Int) -> Unit = {},
+    onPlatformClick: (Platform) -> Unit = {},
 ) {
+    var clicked by remember { mutableStateOf(false) }
+
     Row (
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
@@ -57,7 +70,10 @@ internal fun PlatformLabel(
             .padding(4.dp)
             .clickable(
                 enabled = clickable,
-                onClick = { onPlatformClick(platform.key) }
+                onClick = {
+                    onPlatformClick(platform)
+                    clicked = !clicked
+                }
             )
     ) {
         Image(
@@ -71,6 +87,15 @@ internal fun PlatformLabel(
             modifier = modifier
                 .padding(horizontal = 2.dp)
         )
+
+        if (clicked) {
+            Icon(
+                imageVector = Icons.Default.Check,
+                contentDescription = null,
+                modifier = modifier
+                    .padding(horizontal = 2.dp)
+            )
+        }
     }
 }
 

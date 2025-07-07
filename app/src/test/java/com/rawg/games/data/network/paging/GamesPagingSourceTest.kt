@@ -29,6 +29,8 @@ class GamesPagingSourceTest {
             gamesService = mockGamesService,
             search = null,
             ordering = null,
+            genres = null,
+            platforms = null,
         )
     }
 
@@ -78,7 +80,7 @@ class GamesPagingSourceTest {
         )
 
         `when`(
-            mockGamesService.getGames(any(), any(), any(), any())
+            mockGamesService.getGames(any(), any(), any(), any(), any(), any())
         ).thenReturn(Single.just(mockResponse))
 
         // action
@@ -94,7 +96,7 @@ class GamesPagingSourceTest {
     fun gamesPagingSource_testLoadError_returnsError() = runTest {
         // setup
         `when`(
-            mockGamesService.getGames(any(), any(), any(), any())
+            mockGamesService.getGames(any(), any(), any(), any(), any(), any())
         ).thenReturn(Single.error(RuntimeException("Network error")))
 
         // action

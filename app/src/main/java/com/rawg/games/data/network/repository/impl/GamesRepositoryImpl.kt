@@ -20,7 +20,9 @@ class GamesRepositoryImpl @Inject constructor(
 ) : GamesRepository {
     override fun getGames(
         search: String?,
-        ordering: Ordering?
+        ordering: Ordering?,
+        genres: String?,
+        platforms: String?,
     ): Observable<PagingData<GameData>> {
         return Pager(
             config = PagingConfig(
@@ -28,7 +30,9 @@ class GamesRepositoryImpl @Inject constructor(
                 enablePlaceholders = ENABLE_PLACEHOLDERS,
                 maxSize = MAX_SIZE,
             ),
-            pagingSourceFactory = { GamesPagingSource(gamesService, search, ordering) }
+            pagingSourceFactory = { GamesPagingSource(
+                gamesService, search, ordering, genres, platforms
+            ) }
         )
             .observable
             .observeOn(Schedulers.computation())

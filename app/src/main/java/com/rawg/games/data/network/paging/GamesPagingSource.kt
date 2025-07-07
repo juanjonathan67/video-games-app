@@ -12,6 +12,8 @@ class GamesPagingSource(
     private val gamesService: GamesService,
     private val search: String?,
     private val ordering: Ordering?,
+    private val genres: String?,
+    private val platforms: String?,
 ) : RxPagingSource<Int, GamesResponse.Games>(){
     override fun loadSingle(params: LoadParams<Int>): Single<LoadResult<Int, GamesResponse.Games>> {
         val position = params.key ?: 1
@@ -21,6 +23,8 @@ class GamesPagingSource(
             pageSize = params.loadSize,
             search = search,
             ordering = ordering.toString(),
+            genres = genres,
+            platforms = platforms,
         )
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.computation())

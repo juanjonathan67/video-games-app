@@ -7,46 +7,57 @@ import androidx.paging.cachedIn
 import com.rawg.games.data.model.GameData
 import com.rawg.games.data.network.repository.GamesRepository
 import com.rawg.games.ui.components.filter.Filter
+import com.rawg.games.ui.components.genre.Genre
+import com.rawg.games.ui.components.platform.Platform
 import io.reactivex.rxjava3.core.Observable
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import io.reactivex.rxjava3.subjects.BehaviorSubject
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.rx3.asFlow
 import javax.inject.Inject
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class HomeViewModel @Inject constructor(
     private val gamesRepository: GamesRepository,
 ) : ViewModel() {
-    private val searchQuery = MutableStateFlow("")
-    private val filter = MutableStateFlow(Filter())
+    private val searchQuerySubject = BehaviorSubject.createDefault("")
+    private val filterSubject = BehaviorSubject.createDefault(Filter())
 
-    val games: Flow<PagingData<GameData>> = searchQuery
-        .combine(filter) { query, filter ->
-            Pair(query, filter)
+    val games : Flow<PagingData<GameData>> = Observable
+        .combineLatest(
+            searchQuerySubject.hide(),
+            filterSubject.hide(),
+            ::Pair
+        ).flatMap { (searchQuery, filter) ->
+            getGames(searchQuery, filter)
         }
-        .flatMapLatest { (query, filter) ->
-            getBestGames(query, filter).asFlow()
-    }.cachedIn(viewModelScope)
+        .asFlow()
+        .cachedIn(viewModelScope)
 
     fun setSearchQuery(newSearchQuery: String) {
-        searchQuery.value = newSearchQuery
+        searchQuerySubject.onNext(newSearchQuery)
     }
 
     fun setFilter(newFilter: Filter) {
-        filter.value = newFilter
+        filterSubject.onNext(newFilter)
     }
 
-    private fun getBestGames(
+    private fun getGames(
         searchQuery: String,
         filter: Filter,
     ): Observable<PagingData<GameData>> {
         return gamesRepository
             .getGames(
-                search = searchQuery,
-                ordering = filter.ordering
+                search = searchQuery.ifBlank { null },
+                ordering = filter.ordering,
+                genres = if (filter.genres.isNotEmpty()) {
+                    Genre.transformToKeysString(filter.genres)
+                } else {
+                    null
+                },
+                platforms = if (filter.platforms.isNotEmpty()) {
+                    Platform.transformToKeysString(filter.platforms)
+                } else {
+                    null
+                },
             )
     }
 }

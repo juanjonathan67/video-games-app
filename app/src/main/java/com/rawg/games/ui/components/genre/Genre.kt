@@ -25,5 +25,8 @@ enum class Genre(val key: Int, val displayName: String) {
         private val keyMap = Genre.entries.associateBy { it.key }
 
         fun fromKey(key: Int): Genre? = keyMap[key]
+
+        fun transformToKeysString(genres: List<Genre>): String = genres
+            .joinToString(",") { it.key.toString() }
     }
 }

@@ -6,6 +6,8 @@
     <string name="release_date">Released in %1$s</string>
 
     <string name="order_by">Order by</string>
+    <string name="genre">Genre</string>
+    <string name="platform">Platform</string>
     
     <string name="error_text">"Oops, something went wrong"</string>
     <string name="no_image_text">No Image Available</string>
