@@ -11,5 +11,7 @@ interface GamesService {
         @Query("page_size") pageSize: Int? = null,
         @Query("search") search: String? = null,
         @Query("ordering") ordering: String? = null,
+        @Query("genres") genres: String? = null,
+        @Query("parent_platforms") platforms: String? = null,
     ): Single<GamesResponse>
 }

@@ -20,5 +20,8 @@ enum class Platform(val key: Int, val iconId: Int) {
         private val keyMap = entries.associateBy { it.key }
 
         fun fromKey(key: Int): Platform? = keyMap[key]
+
+        fun transformToKeysString(platforms: List<Platform>): String = platforms
+            .joinToString(",") { it.key.toString() }
     }
 }

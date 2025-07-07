@@ -15,10 +15,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.rawg.games.R
 import com.rawg.games.ui.components.filter.ordering.OrderingDropdownMenu
+import com.rawg.games.ui.components.genre.Genre
+import com.rawg.games.ui.components.genre.GenreList
+import com.rawg.games.ui.components.platform.Platform
+import com.rawg.games.ui.components.platform.PlatformList
 
 @Composable
 fun FilterDialog(
@@ -51,6 +57,54 @@ internal fun FilterDialogContent(
                 OrderingDropdownMenu(
                     ordering = filter.ordering,
                     onOrderingChanged = { onFilterChanged(filter.copy(ordering = it)) },
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(8.dp)
+                )
+
+                Text(
+                    text = stringResource(R.string.genre),
+                    modifier = Modifier.padding(8.dp),
+                )
+
+                GenreList(
+                    genreList = Genre.entries.toList(),
+                    clickable = true,
+                    onGenreClick = { genre ->
+                        val genreIdx = filter.genres.indexOf(genre)
+                        if (genreIdx == -1) {
+                            onFilterChanged(filter.copy(
+                                genres = ArrayList(filter.genres).apply { add(genre) }
+                            ))
+                        } else {
+                            onFilterChanged(filter.copy(
+                                genres = ArrayList(filter.genres).apply { remove(genre) }
+                            ))
+                        }
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(8.dp)
+                )
+
+                Text(
+                    text = stringResource(R.string.platform),
+                    modifier = Modifier.padding(8.dp),
+                )
+
+                PlatformList(
+                    platforms = Platform.entries.toList(),
+                    clickable = true,
+                    onPlatformClick = { platform ->
+                        val platformIdx = filter.platforms.indexOf(platform)
+                        if (platformIdx == -1) {
+                            onFilterChanged(filter.copy(
+                                platforms = ArrayList(filter.platforms).apply { add(platform) }
+                            ))
+                        } else {
+                            onFilterChanged(filter.copy(
+                                platforms = ArrayList(filter.platforms).apply { remove(platform) }
+                            ))
+                        }
+                    },
                     modifier = Modifier.fillMaxWidth()
                         .padding(8.dp)
                 )

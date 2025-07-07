@@ -10,5 +10,7 @@ interface GamesRepository {
     fun getGames(
         search: String? = null,
         ordering: Ordering? = null,
+        genres: String? = null,
+        platforms: String? = null,
     ) : Observable<PagingData<GameData>>
 }

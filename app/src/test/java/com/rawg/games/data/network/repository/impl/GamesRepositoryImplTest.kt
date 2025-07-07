@@ -62,7 +62,7 @@ class GamesRepositoryImplTest {
         )
 
         `when`(
-            mockGamesService.getGames(any(), any(), any(), any())
+            mockGamesService.getGames(any(), any(), any(), any(), any(), any())
         ).thenReturn(Single.just(mockResponse))
 
         // action
