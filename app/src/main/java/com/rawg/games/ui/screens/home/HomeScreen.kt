@@ -22,7 +22,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.rawg.games.R
-import com.rawg.games.data.model.GameData
+import com.rawg.games.domain.model.GameData
 import com.rawg.games.ui.components.error.Error
 import com.rawg.games.ui.components.filter.FilterDialog
 import com.rawg.games.ui.components.game.GameItem
@@ -32,6 +32,7 @@ import com.rawg.games.utils.LocalViewModelFactory
 
 @Composable
 fun HomeScreen(
+    navigateToDetail: (Int) -> Unit,
     homeViewModel: HomeViewModel = viewModel(factory = LocalViewModelFactory.current)
 ) {
     val bestGames = remember { homeViewModel.games }.collectAsLazyPagingItems()
@@ -59,7 +60,7 @@ fun HomeScreen(
             )
         }
 
-        HomeScreenContent(bestGames)
+        HomeScreenContent(bestGames, navigateToDetail)
     }
 
     if (showFilterDialog) {
@@ -93,15 +94,17 @@ fun FilterButton(
 @Composable
 fun HomeScreenContent(
     bestGames: LazyPagingItems<GameData>,
+    navigateToDetail: (Int) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     when (bestGames.loadState.refresh) {
-        is LoadState.Loading -> Loading()
-        is LoadState.Error -> Error()
+        is LoadState.Loading -> Loading(modifier)
+        is LoadState.Error -> Error(modifier)
         else -> {
             if(bestGames.itemCount == 0) {
-                Loading()
+                Loading(modifier)
             } else {
-                GamesList(bestGames)
+                GamesList(bestGames, navigateToDetail, modifier)
             }
         }
     }
@@ -110,10 +113,13 @@ fun HomeScreenContent(
 @Composable
 fun GamesList(
     bestGames: LazyPagingItems<GameData>,
+    navigateToDetail: (Int) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     LazyColumn (
         verticalArrangement = Arrangement.spacedBy(16.dp),
         contentPadding = PaddingValues(8.dp),
+        modifier = modifier,
     ) {
         items(
             count = bestGames.itemCount,
@@ -123,7 +129,7 @@ fun GamesList(
 
             GameItem(
                 gameData = item,
-                onClick = { }
+                onClick = navigateToDetail
             )
         }
     }

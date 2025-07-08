@@ -1,0 +1,64 @@
+package com.rawg.games.data.network.service.games.response
+
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
+data class GameDetailsResponse (
+    @Json(name = "id")
+    val id: Int,
+
+    @Json(name = "name")
+    val name: String,
+
+    @Json(name = "description")
+    val description: String,
+
+    @Json(name = "released")
+    val released: String?,
+
+    @Json(name = "background_image")
+    val imageUrl: String?,
+
+    @Json(name = "rating")
+    val userRating: Double,
+
+    @Json(name = "ratings_count")
+    val ratingsCount: Int,
+
+    @Json(name = "metacritic")
+    val metacritic: Int?,
+
+    @Json(name = "parent_platforms")
+    val platforms: List<Platform>,
+
+    @Json(name = "genres")
+    val genres: List<Genre>,
+
+    @Json(name = "publishers")
+    val publishers: List<Publisher>,
+) {
+    @JsonClass(generateAdapter = true)
+    data class Platform (
+        @Json(name = "platform")
+        val platformDetails: PlatformDetails,
+    )
+
+    @JsonClass(generateAdapter = true)
+    data class PlatformDetails(
+        @Json(name = "id")
+        val id: Int,
+    )
+
+    @JsonClass(generateAdapter = true)
+    data class Genre(
+        @Json(name = "id")
+        val id: Int,
+    )
+
+    @JsonClass(generateAdapter = true)
+    data class Publisher(
+        @Json(name = "name")
+        val name: String,
+    )
+}

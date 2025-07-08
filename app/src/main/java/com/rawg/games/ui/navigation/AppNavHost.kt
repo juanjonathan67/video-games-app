@@ -3,8 +3,11 @@ package com.rawg.games.ui.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
+import com.rawg.games.ui.screens.detail.DetailScreen
 import com.rawg.games.ui.screens.favorite.FavoriteScreen
 import com.rawg.games.ui.screens.home.HomeScreen
 import com.rawg.games.ui.screens.settings.SettingsScreen
@@ -22,7 +25,22 @@ fun AppNavHost(
         composable(
             route = Route.Home.route
         ) {
-            HomeScreen()
+            HomeScreen(
+                navigateToDetail = { gameId ->
+                    navHostController.navigate(Route.Detail.createRoute(gameId))
+                }
+            )
+        }
+        composable(
+            route = Route.Detail.route,
+            arguments = listOf(navArgument("gameId") {type = NavType.IntType})
+        ) {
+            val gameId = it.arguments?.getInt("gameId") ?: return@composable
+
+            DetailScreen(
+                gameId = gameId,
+                navigateBack = { navHostController.popBackStack() },
+            )
         }
         composable(
             route = Route.Favorite.route

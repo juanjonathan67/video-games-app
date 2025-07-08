@@ -2,7 +2,7 @@ package com.rawg.games.data.network.paging
 
 import androidx.paging.PagingState
 import androidx.paging.rxjava3.RxPagingSource
-import com.rawg.games.data.network.service.games.GamesResponse
+import com.rawg.games.data.network.service.games.response.GamesResponse
 import com.rawg.games.data.network.service.games.GamesService
 import com.rawg.games.ui.components.filter.ordering.Ordering
 import io.reactivex.rxjava3.core.Single

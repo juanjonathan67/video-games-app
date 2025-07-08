@@ -3,7 +3,7 @@ package com.rawg.games.data.network.paging
 import androidx.paging.PagingConfig
 import androidx.paging.PagingSource
 import androidx.paging.testing.TestPager
-import com.rawg.games.data.network.service.games.GamesResponse
+import com.rawg.games.data.network.service.games.response.GamesResponse
 import com.rawg.games.data.network.service.games.GamesService
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.test.runTest

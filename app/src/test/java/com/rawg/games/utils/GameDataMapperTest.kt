@@ -1,8 +1,9 @@
 package com.rawg.games.utils
 
-import com.rawg.games.data.network.service.games.GamesResponse
+import com.rawg.games.data.network.service.games.response.GamesResponse
 import com.rawg.games.ui.components.genre.Genre
 import com.rawg.games.ui.components.platform.Platform
+import com.rawg.games.utils.mapper.GameDataMapper
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

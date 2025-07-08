@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.rawg.games.data.model.GameData
-import com.rawg.games.data.network.repository.GamesRepository
+import com.rawg.games.domain.model.GameData
+import com.rawg.games.domain.repository.GamesRepository
 import com.rawg.games.ui.components.filter.Filter
 import com.rawg.games.ui.components.genre.Genre
 import com.rawg.games.ui.components.platform.Platform
