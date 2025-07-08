@@ -1,7 +1,8 @@
 package com.rawg.games.data.network.repository.impl
 
 import androidx.paging.testing.asSnapshot
-import com.rawg.games.data.network.service.games.GamesResponse
+import com.rawg.games.data.network.repository.GamesRepositoryImpl
+import com.rawg.games.data.network.service.games.response.GamesResponse
 import com.rawg.games.data.network.service.games.GamesService
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.rx3.asFlow

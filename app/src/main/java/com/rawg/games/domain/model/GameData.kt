@@ -1,4 +1,4 @@
-package com.rawg.games.data.model
+package com.rawg.games.domain.model
 
 import com.rawg.games.ui.components.genre.Genre
 import com.rawg.games.ui.components.platform.Platform

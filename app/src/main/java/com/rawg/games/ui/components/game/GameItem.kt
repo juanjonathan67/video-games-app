@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.SubcomposeAsyncImage
 import com.rawg.games.R
-import com.rawg.games.data.model.GameData
+import com.rawg.games.domain.model.GameData
 import com.rawg.games.ui.components.error.PlaceholderImage
 import com.rawg.games.ui.components.genre.Genre
 import com.rawg.games.ui.components.genre.GenreList

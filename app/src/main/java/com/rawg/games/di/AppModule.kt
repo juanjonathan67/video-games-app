@@ -1,5 +1,7 @@
 package com.rawg.games.di
 
+import android.app.Application
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.rawg.games.BuildConfig
 import com.rawg.games.data.network.service.games.GamesService
 import dagger.Module
@@ -21,6 +23,7 @@ object AppModule {
     @Named("okhttp_client")
     fun provideOkHttpClient(
         @Named("rawg_api_key") apiKey: String,
+        application: Application
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(object : Interceptor {
@@ -39,7 +42,8 @@ object AppModule {
                     return chain.proceed(newRequest)
                 }
             })
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE))
+            .addInterceptor(ChuckerInterceptor(application))
             .build()
     }
 

@@ -1,4 +1,4 @@
-package com.rawg.games.data.network.service.games
+package com.rawg.games.data.network.service.games.response
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

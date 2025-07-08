@@ -1,9 +1,10 @@
-package com.rawg.games.utils
+package com.rawg.games.utils.mapper
 
-import com.rawg.games.data.model.GameData
-import com.rawg.games.data.network.service.games.GamesResponse
+import com.rawg.games.domain.model.GameData
+import com.rawg.games.data.network.service.games.response.GamesResponse
 import com.rawg.games.ui.components.genre.Genre
 import com.rawg.games.ui.components.platform.Platform
+import com.rawg.games.utils.toFormattedDateString
 
 object GameDataMapper {
     fun transform(games: GamesResponse.Games): GameData {
