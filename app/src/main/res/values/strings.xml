@@ -1,8 +1,9 @@
 <resources>
-    <string name="app_name">Video Games App</string>
+    <string name="app_name">My Games</string>
 
     <string name="metacritic_rating">%1$s on Metacritic</string>
     <string name="user_rating">%1$s Rating by %2$s Gamers</string>
+    <string name="published_by">Published by %1$s</string>
     <string name="release_date">Released in %1$s</string>
 
     <string name="order_by">Order by</string>

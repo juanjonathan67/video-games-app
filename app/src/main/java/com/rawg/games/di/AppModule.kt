@@ -1,7 +1,6 @@
 package com.rawg.games.di
 
 import android.app.Application
-import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.rawg.games.BuildConfig
 import com.rawg.games.data.network.service.games.GamesService
 import dagger.Module
@@ -43,7 +42,6 @@ object AppModule {
                 }
             })
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE))
-            .addInterceptor(ChuckerInterceptor(application))
             .build()
     }
 
