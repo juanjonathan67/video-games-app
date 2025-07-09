@@ -39,7 +39,6 @@ fun AppNavHost(
 
             DetailScreen(
                 gameId = gameId,
-                navigateBack = { navHostController.popBackStack() },
             )
         }
         composable(

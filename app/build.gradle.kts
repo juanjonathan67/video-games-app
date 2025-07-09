@@ -96,6 +96,8 @@ dependencies {
     implementation(libs.androidx.paging.rxjava)
     implementation(libs.androidx.paging.compose)
     implementation(libs.kotlin.coroutines.rx3)
+    implementation(libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.ui)
     kapt(libs.dagger.compiler)
     kapt(libs.dagger.android.processor)
     kapt(libs.moshi.kotlin.codegen)
@@ -109,6 +111,4 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    debugImplementation("com.github.chuckerteam.chucker:library:4.1.0")
-    releaseImplementation("com.github.chuckerteam.chucker:library-no-op:4.1.0")
 }
